@@ -4,7 +4,7 @@
 //DEFINITIONS
 
 #define	PROGRAM_NAME		"Aurora Synesthesia"
-#define PROGRAM_VERSION		"1.06"
+#define PROGRAM_VERSION		"1.07"
 
 #define NULL	0
 
