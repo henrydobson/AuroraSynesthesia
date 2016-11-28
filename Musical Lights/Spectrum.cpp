@@ -53,12 +53,12 @@ Spectrum::Spectrum(bool &creationSucceeded)
 				soundInfo.format = FMOD_SOUND_FORMAT_PCM16;
 
 				//
-				FMOD_RESULT err = system_->createSound(NULL, FMOD_2D | FMOD_OPENUSER | FMOD_LOOP_NORMAL | FMOD_SOFTWARE, &soundInfo, &sound);
+				FMOD_RESULT err = system_->createSound(NULL, FMOD_2D | FMOD_OPENUSER | FMOD_LOOP_NORMAL, &soundInfo, &sound);
 				if(err == FMOD_OK)
 				{
 					//
 					system_->recordStart(SOUND_IDENTIFIER, sound, true);
-					system_->playSound(FMOD_CHANNEL_FREE, sound, false, &channel_);
+					system_->playSound(sound, NULL, false, &channel_);
 
 					//
 					FMOD::ChannelGroup *channelGroup;
@@ -131,13 +131,13 @@ void Spectrum::processAudio(void)
 	//Left Channel Processing
 	float* newLeftSpectrum = previousLeftSpectrum_;		//Discarding the previous spectrum to become the new spectrum
 	previousLeftSpectrum_ = leftSpectrum_;				//Last recorded spectrum becomes the previous spectrum
-	channel_->getSpectrum(newLeftSpectrum, SPECTRUM_WIDTH, 0, FMOD_DSP_FFT_WINDOW_HANNING);
+	// channel_->getSpectrum(newLeftSpectrum, SPECTRUM_WIDTH, 0, FMOD_DSP_FFT_WINDOW_HANNING);
 	leftSpectrum_ = newLeftSpectrum;					//New spectrum becomes the current spectrum
 
 	//Right Channel Processing
 	float* newRightSpectrum = previousRightSpectrum_;	//Discarding the previous spectrum to become the new spectrum
 	previousRightSpectrum_ = rightSpectrum_;			//Last recorded spectrum becomes the previous spectrum
-	channel_->getSpectrum(newRightSpectrum, SPECTRUM_WIDTH, 1, FMOD_DSP_FFT_WINDOW_HANNING);
+	// channel_->getSpectrum(newRightSpectrum, SPECTRUM_WIDTH, 1, FMOD_DSP_FFT_WINDOW_HANNING);
 	rightSpectrum_ = newRightSpectrum;					//New spectrum becomes the current spectrum
 
 
